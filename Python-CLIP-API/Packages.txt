@@ -1,0 +1,18 @@
+Installing a Python package:
+In cmd type
+    pip install package_name
+
+Packages:
+    requests
+    certifi
+
+Download website certificate:
+Open Chrome at CLIP API Debugger page.
+Click lock -> Certificate -> Details -> Copy to file -> Select BASE64
+
+Setup certifi:
+Open cmd, start Python and type:
+    import certifi
+    certifi.where()
+
+Open the file and add content of the downloaded wbesite certificate
