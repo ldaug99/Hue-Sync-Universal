@@ -1,0 +1,218 @@
+{
+   "1": {
+      "capabilities": {
+         "certified": true,
+         "control": {
+            "colorgamut": [
+               [
+                  0.6915,
+                  0.3083
+               ],
+               [
+                  0.17,
+                  0.7
+               ],
+               [
+                  0.1532,
+                  0.0475
+               ]
+            ],
+            "colorgamuttype": "C",
+            "ct": {
+               "max": 500,
+               "min": 153
+            },
+            "maxlumen": 1600,
+            "mindimlevel": 40
+         },
+         "streaming": {
+            "proxy": true,
+            "renderer": true
+         }
+      },
+      "config": {
+         "archetype": "huelightstrip",
+         "direction": "omnidirectional",
+         "function": "mixed",
+         "startup": {
+            "configured": true,
+            "customsettings": {
+               "bri": 39,
+               "xy": [
+                  0.6117,
+                  0.3731
+               ]
+            },
+            "mode": "custom"
+         }
+      },
+      "manufacturername": "Philips",
+      "modelid": "LST002",
+      "name": "LED Strip Bedside",
+      "productid": "Philips-LST002-1-LedStripsv3",
+      "productname": "Hue lightstrip plus",
+      "state": {
+         "alert": "select",
+         "bri": 25,
+         "colormode": "xy",
+         "ct": 500,
+         "effect": "none",
+         "hue": 6291,
+         "mode": "homeautomation",
+         "on": false,
+         "reachable": true,
+         "sat": 251,
+         "xy": [
+            0.5612,
+            0.4042
+         ]
+      },
+      "swconfigid": "A25796CB",
+      "swupdate": {
+         "lastinstall": "2019-09-08T08:16:07",
+         "state": "noupdates"
+      },
+      "swversion": "1.46.13_r26312",
+      "type": "Extended color light",
+      "uniqueid": "00:17:88:01:04:04:e2:a1-0b"
+   },
+   "2": {
+      "capabilities": {
+         "certified": false,
+         "control": {
+            "colorgamuttype": "other"
+         },
+         "streaming": {
+            "proxy": false,
+            "renderer": false
+         }
+      },
+      "config": {
+         "archetype": "classicbulb",
+         "direction": "omnidirectional",
+         "function": "decorative"
+      },
+      "manufacturername": "IKEA of Sweden",
+      "modelid": "TRADFRI bulb E14 CWS opal 600lm",
+      "name": "Lamp Bedside",
+      "productname": "Color light",
+      "state": {
+         "alert": "select",
+         "bri": 1,
+         "colormode": "xy",
+         "effect": "none",
+         "hue": 0,
+         "mode": "homeautomation",
+         "on": false,
+         "reachable": true,
+         "sat": 0,
+         "xy": [
+            0.561,
+            0.4042
+         ]
+      },
+      "swupdate": {
+         "lastinstall": "2019-09-08T16:18:36",
+         "state": "notupdatable"
+      },
+      "swversion": "1.3.002",
+      "type": "Color light",
+      "uniqueid": "00:0d:6f:ff:fe:43:cc:e0-01"
+   },
+   "3": {
+      "capabilities": {
+         "certified": false,
+         "control": {
+            "colorgamuttype": "other",
+            "ct": {
+               "max": 65535,
+               "min": 0
+            }
+         },
+         "streaming": {
+            "proxy": false,
+            "renderer": false
+         }
+      },
+      "config": {
+         "archetype": "huelightstrip",
+         "direction": "omnidirectional",
+         "function": "mixed"
+      },
+      "manufacturername": "GLEDOPTO",
+      "modelid": "GL-C-007",
+      "name": "LED Strip Overhead",
+      "productname": "Extended color light",
+      "state": {
+         "alert": "select",
+         "bri": 254,
+         "colormode": "xy",
+         "ct": 447,
+         "effect": "none",
+         "hue": 6144,
+         "mode": "homeautomation",
+         "on": false,
+         "reachable": true,
+         "sat": 254,
+         "xy": [
+            0.561,
+            0.4042
+         ]
+      },
+      "swupdate": {
+         "lastinstall": "2019-10-16T09:27:20",
+         "state": "notupdatable"
+      },
+      "swversion": "2.0.0",
+      "type": "Extended color light",
+      "uniqueid": "00:12:4b:00:1d:45:04:c0-0b"
+   },
+   "4": {
+      "capabilities": {
+         "certified": false,
+         "control": {
+            "colorgamuttype": "other",
+            "ct": {
+               "max": 65535,
+               "min": 0
+            }
+         },
+         "streaming": {
+            "proxy": false,
+            "renderer": false
+         }
+      },
+      "config": {
+         "archetype": "huelightstrip",
+         "direction": "omnidirectional",
+         "function": "mixed"
+      },
+      "manufacturername": "GLEDOPTO",
+      "modelid": "GL-C-007",
+      "name": "LED Strip TV",
+      "productname": "Extended color light",
+      "state": {
+         "alert": "select",
+         "bri": 254,
+         "colormode": "xy",
+         "ct": 447,
+         "effect": "none",
+         "hue": 6144,
+         "mode": "homeautomation",
+         "on": false,
+         "reachable": true,
+         "sat": 254,
+         "xy": [
+            0.561,
+            0.4042
+         ]
+      },
+      "swupdate": {
+         "lastinstall": "2019-10-17T13:14:50",
+         "state": "notupdatable"
+      },
+      "swversion": "2.0.0",
+      "type": "Extended color light",
+      "uniqueid": "00:12:4b:00:1d:44:fe:e1-0b"
+   }
+}

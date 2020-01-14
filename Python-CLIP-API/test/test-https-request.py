@@ -18,41 +18,59 @@ import sys
 
 #response = https.requests('GET', 'https://192.168.87.114/debug/clip.html')
 
-address = "https://192.168.87.114/"
+#address = "https://192.168.87.114/"
 #debug/clip.html
 #api/newdeveloper
 #api
 #apiCommand = "api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights" # Get info on all lights
-apiCommand = "api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/4/state"
+#apiCommand = "api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/4/state"
 
-address = address + apiCommand
+#address = address + apiCommand
 
 #PARAMS = {"devicetype":"apiTest#WizardsDesktop"} 
 
 #PARAMS = {"on":True}
 
-from contextlib import contextmanager
-import sys, os
+#from contextlib import contextmanager
+#import sys, os
 
-@contextmanager
-def suppress_stdout():
-    with open(os.devnull, "w") as devnull:
-        old_stdout = sys.stdout
-        sys.stdout = devnull
-        try:  
-            yield
-        finally:
-            sys.stdout = old_stdout
+#@contextmanager
+#def suppress_stdout():
+#    with open(os.devnull, "w") as devnull:
+#        old_stdout = sys.stdout
+#        sys.stdout = devnull
+#        try:  
+#            yield
+#        finally:
+#            sys.stdout = old_stdout
 
+lightID = "4"
+bri = "241"
+sat = "241"
+hue = "2500"
 
-#response = requests.get("https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL", verify = False) # Dump all data
+address = "https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/4/state"
+
+params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat)}
+
+response = requests.put(address, json = params, verify = False)
+
+#no = False
+#response = requests.get("https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights", verify = False) # Dump all data
+try:
+    data = response.json()
+    print(json.dumps(data, sort_keys=True, indent=3))
+except:
+    pass
+
+    
 
 #response = requests.get(address, verify = False)
-with suppress_stdout():
-    for hue in range(0, 65000, 500):
-        PARAMS = {"on":True, "sat":254, "bri":254,"hue":hue}
-        print(json.dumps(PARAMS))
-        response = requests.put(address, json = PARAMS, verify = False)
+#with suppress_stdout():
+#    for hue in range(0, 65000, 500):
+#        PARAMS = {"on":True, "sat":254, "bri":254,"hue":hue}
+#        print(json.dumps(PARAMS))
+#        response = requests.put(address, json = PARAMS, verify = False)
 
         #response = requests.post(url = address, json = PARAMS, verify = False)
 
@@ -62,8 +80,25 @@ with suppress_stdout():
             
         #if data != None:
         #    print(json.dumps(data, sort_keys=True, indent=4))
-        time.sleep(0.00001)
+#        time.sleep(0.00001)
 
+
+
+
+#lights = None
+
+#for i in range(1, len(data) + 1):
+#    name = None
+#    try:
+#        name = data[str(i)]["name"]
+#    except:
+#        pass
+#    light = {"id": str(i), "name": name}
+#    if lights == None:
+#        lights = [light]
+#    else:
+#        lights.append(light)
+#print(lights)
 
 
 #input("Press Enter to continue...")

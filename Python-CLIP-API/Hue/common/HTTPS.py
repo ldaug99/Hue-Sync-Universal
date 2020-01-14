@@ -25,13 +25,16 @@ def request(rtype, address, api, **kwargs):
         "address": "https://" + address + api,
         "params": kwargs.get('params', {}),
         "verify": kwargs.get('verify', defaultVerify),
-        "timeout": kwargs.get('timeout', defaultTimeout)
+        "timeout": kwargs.get('timeout', defaultTimeout),
+        "verbose": kwargs.get('verbose', False)
     } # Create paramater dictionary, which can be passed to the specific request function
-    print("Sending request type {} to address {}, with data {}".format(rtype, address, kwargs.get('params', {})))
+    if kwargs["verbose"]:
+        print("Sending request type {} to address {}, with data {}".format(rtype, "https://" + address + api, kwargs.get('params', {})))
     response = __sendRequest(**kwargs)
     response_code = __getResponseCode(response) # Get response code
     data = __getData(response) # Get data
-    print("Request returned response {} and data {}".format(response_code,data))
+    if kwargs["verbose"]:
+        print("Request returned response {} and data {}".format(response_code,data))
     return response_code, data # Return response and data
 
 def __sendRequest(**kwargs): # Determine request type
