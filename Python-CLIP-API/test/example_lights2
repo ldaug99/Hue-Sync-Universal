@@ -1,0 +1,277 @@
+{
+   "4": {
+      "capabilities": {
+         "certified": true,       
+         "control": {
+            "colorgamut": [       
+               [
+                  0.675,
+                  0.322
+               ],
+               [
+                  0.409,
+                  0.518
+               ],
+               [
+                  0.167,
+                  0.04
+               ]
+            ],
+            "colorgamuttype": "B",
+            "ct": {
+               "max": 500,        
+               "min": 153
+            },
+            "maxlumen": 250,      
+            "mindimlevel": 5000   
+         },
+         "streaming": {
+            "proxy": true,
+            "renderer": true
+         }
+      },
+      "config": {
+         "archetype": "spotbulb",
+         "direction": "downwards",
+         "function": "mixed",
+         "startup": {
+            "configured": true,
+            "mode": "powerfail"
+         }
+      },
+      "manufacturername": "Philips",
+      "modelid": "LCT003",
+      "name": "Hue color spot 3",
+      "productname": "Hue color spot",
+      "state": {
+         "alert": "select",
+         "bri": 254,
+         "colormode": "hs",
+         "ct": 153,
+         "effect": "none",
+         "hue": 2500,
+         "mode": "homeautomation",
+         "on": true,
+         "reachable": true,
+         "sat": 254,
+         "xy": [
+            0.649,
+            0.3411
+         ]
+      },
+      "swupdate": {
+         "lastinstall": "2019-10-20T11:22:13",
+         "state": "noupdates"
+      },
+      "swversion": "5.127.1.26420",
+      "type": "Extended color light",
+      "uniqueid": "00:17:88:01:04:31:6e:f7-0b"
+   },
+   "5": {
+      "capabilities": {
+         "certified": true,
+         "control": {
+            "colorgamut": [
+               [
+                  0.675,
+                  0.322
+               ],
+               [
+                  0.409,
+                  0.518
+               ],
+               [
+                  0.167,
+                  0.04
+               ]
+            ],
+            "colorgamuttype": "B",
+            "ct": {
+               "max": 500,
+               "min": 153
+            },
+            "maxlumen": 250,
+            "mindimlevel": 5000
+         },
+         "streaming": {
+            "proxy": true,
+            "renderer": true
+         }
+      },
+      "config": {
+         "archetype": "spotbulb",
+         "direction": "downwards",
+         "function": "mixed",
+         "startup": {
+            "configured": true,
+            "mode": "powerfail"
+         }
+      },
+      "manufacturername": "Philips",
+      "modelid": "LCT003",
+      "name": "Hue color spot 4",
+      "productname": "Hue color spot",
+      "state": {
+         "alert": "select",
+         "bri": 254,
+         "colormode": "hs",
+         "ct": 153,
+         "effect": "none",
+         "hue": 46000,
+         "mode": "homeautomation",
+         "on": true,
+         "reachable": true,
+         "sat": 254,
+         "xy": [
+            0.1794,
+            0.0646
+         ]
+      },
+      "swupdate": {
+         "lastinstall": "2019-10-20T11:22:10",
+         "state": "noupdates"
+      },
+      "swversion": "5.127.1.26420",
+      "type": "Extended color light",
+      "uniqueid": "00:17:88:01:04:31:71:36-0b"
+   },
+   "6": {
+      "capabilities": {
+         "certified": false,
+         "control": {
+            "colorgamuttype": "other",
+            "ct": {
+               "max": 65535,
+               "min": 0
+            }
+         },
+         "streaming": {
+            "proxy": false,
+            "renderer": false
+         }
+      },
+      "config": {
+         "archetype": "huelightstrip",
+         "direction": "omnidirectional",
+         "function": "mixed"
+      },
+      "manufacturername": "GLEDOPTO",
+      "modelid": "GL-C-007",
+      "name": "led strips tv",
+      "productname": "Extended color light",
+      "state": {
+         "alert": "select",
+         "bri": 240,
+         "colormode": "hs",
+         "ct": 468,
+         "effect": "none",
+         "hue": 30000,
+         "mode": "homeautomation",
+         "on": true,
+         "reachable": true,
+         "sat": 241,
+         "xy": [
+            0.1082,
+            0.4918
+         ]
+      },
+      "swupdate": {
+         "lastinstall": "2019-10-20T15:22:34",
+         "state": "notupdatable"
+      },
+      "swversion": "2.0.0",
+      "type": "Extended color light",
+      "uniqueid": "00:12:4b:00:1d:45:0d:e9-0b"
+   },
+   "7": {
+      "capabilities": {
+         "certified": false,
+         "control": {
+            "colorgamuttype": "other",
+            "ct": {
+               "max": 65535,
+               "min": 0
+            }
+         },
+         "streaming": {
+            "proxy": false,
+            "renderer": false
+         }
+      },
+      "config": {
+         "archetype": "huelightstrip",
+         "direction": "omnidirectional",
+         "function": "mixed"
+      },
+      "manufacturername": "GLEDOPTO",
+      "modelid": "GL-C-007",
+      "name": "Extended color light 1",
+      "productname": "Extended color light",
+      "state": {
+         "alert": "select",
+         "bri": 254,
+         "colormode": "ct",
+         "ct": 433,
+         "effect": "none",
+         "hue": 0,
+         "mode": "homeautomation",
+         "on": true,
+         "reachable": true,
+         "sat": 246,
+         "xy": [
+            0.1867,
+            0.0651
+         ]
+      },
+      "swupdate": {
+         "lastinstall": "2020-01-05T12:38:03",
+         "state": "notupdatable"
+      },
+      "swversion": "2.0.0",
+      "type": "Extended color light",
+      "uniqueid": "00:12:4b:00:1d:44:fb:35-0b"
+   },
+   "8": {
+      "capabilities": {
+         "certified": false,
+         "control": {
+            "colorgamuttype": "other"
+         },
+         "streaming": {
+            "proxy": false,
+            "renderer": false
+         }
+      },
+      "config": {
+         "archetype": "classicbulb",
+         "direction": "omnidirectional",
+         "function": "decorative"
+      },
+      "manufacturername": "IKEA of Sweden",
+      "modelid": "TRADFRI bulb E14 CWS opal 600lm",
+      "name": "Color light 1",
+      "productname": "Color light",
+      "state": {
+         "alert": "select",
+         "bri": 175,
+         "colormode": "xy",
+         "effect": "none",
+         "hue": 0,
+         "mode": "homeautomation",
+         "on": true,
+         "reachable": true,
+         "sat": 0,
+         "xy": [
+            0.4553,
+            0.4355
+         ]
+      },
+      "swupdate": {
+         "lastinstall": "2020-01-11T17:51:41",
+         "state": "notupdatable"
+      },
+      "swversion": "1.3.002",
+      "type": "Color light",
+      "uniqueid": "ec:1b:bd:ff:fe:3d:5e:c8-01"
+   }
+}

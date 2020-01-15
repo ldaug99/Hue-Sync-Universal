@@ -44,16 +44,19 @@ import sys
 #        finally:
 #            sys.stdout = old_stdout
 
-lightID = "4"
+lightID = "8"
 bri = "241"
 sat = "241"
-hue = "2500"
+hue = "30000"
 
-address = "https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/4/state"
+
+address = "https://192.168.87.183/api/jVfvoEykjhjr5JU448bac1XruOG-jYVMW1s6WCAY/lights/"
+
+#address = "https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/4/state"
 
 params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat)}
 
-response = requests.put(address, json = params, verify = False)
+response = requests.get(address, verify = False)
 
 #no = False
 #response = requests.get("https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights", verify = False) # Dump all data

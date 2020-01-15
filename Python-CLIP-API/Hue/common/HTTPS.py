@@ -26,27 +26,37 @@ def request(rtype, address, api, **kwargs):
         "params": kwargs.get('params', {}),
         "verify": kwargs.get('verify', defaultVerify),
         "timeout": kwargs.get('timeout', defaultTimeout),
-        "verbose": kwargs.get('verbose', False)
+        "verbose": kwargs.get('verbose', False),
+        "dataType": kwargs.get('dataType', "json")
+        "debug": kwargs.get('debug', False)
     } # Create paramater dictionary, which can be passed to the specific request function
     if kwargs["verbose"]:
         print("Sending request type {} to address {}, with data {}".format(rtype, "https://" + address + api, kwargs.get('params', {})))
     response = __sendRequest(**kwargs)
     response_code = __getResponseCode(response) # Get response code
-    data = __getData(response) # Get data
+    if kwargs["dataType"] == "json":
+        data = __getData(response) # Get data
+    elif kwargs["dataType"] == "text":
+        data = __getText(response)
     if kwargs["verbose"]:
         print("Request returned response {} and data {}".format(response_code,data))
     return response_code, data # Return response and data
 
 def __sendRequest(**kwargs): # Determine request type
-    rtype = kwargs.get("rtype", None)
-    switcher = {
-        0: __getRequest,
-        1: __putRequest,
-        2: __postRequest,
-        3: __deleteRequest
-    }
-    function = switcher.get(rtype, lambda: "Exception on __requestType(), invalid function call")
-    return function(**kwargs)
+    debug = kwargs.get("debug", False)
+    if debug:
+        #return __debugHTTPS(**kwargs)
+        pass
+    else:
+        rtype = kwargs.get("rtype", None)
+        switcher = {
+            0: __getRequest,
+            1: __putRequest,
+            2: __postRequest,
+            3: __deleteRequest
+        }
+        function = switcher.get(rtype, lambda: "Exception on __requestType(), invalid function call")
+        return function(**kwargs)
 
 def __getRequest(**kwargs):
     response = None
@@ -114,3 +124,15 @@ def __getData(response): # Check for data in response
     except:
         print("Exception on __getData(): No data returned.")
     return data
+
+def __getText(response):
+    data = None
+    try:
+        data = response.text
+    except:
+        print("Exception on __getText(): No data returned.")
+    return data
+
+#def __debugHTTPS(**kwargs):
+#    rtype = kwargs.get("rtype", None)
+#   if rtype ==  

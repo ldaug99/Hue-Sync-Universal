@@ -1,4 +1,5 @@
 from common import HTTPS
+import time
 
 def getAPIkey(address, **kwargs):
     '''
@@ -31,7 +32,7 @@ def getAPIkey(address, **kwargs):
                     return None
                 print("Press link button on Hue Bridge")
                 #input("Press enter to retry connection") # Wait for input
-                sleep(__delay) # Sleep for 5 seconds
+                time.sleep(__delay) # Sleep for 5 seconds
                 __key = getAPIkey(address, deviceName = __name) # Retry function
             elif "success" in data[0]: # If successfull request
                 try:

@@ -1,6 +1,14 @@
 import socket
 from common import HTTPS
 
+class bridgeFinder():
+
+
+    def __init__(self):
+
+        
+    def run():
+
 def scanNetwork():
     print("Beginning network scan...")
     hostIP = __getHostIP() # Get host IP address (Note to self: dosen't work with VPN turned on...)
@@ -11,7 +19,7 @@ def scanNetwork():
         return False
     devices = None
     port = 443
-    socket.setdefaulttimeout(0.005) 
+    socket.setdefaulttimeout(0.01) 
     for i in range(2, 256):
         addr = hostIP + "." + str(i)
         result = None
@@ -56,14 +64,11 @@ def __getIPmask(hostIP):
 
 def __isHue(address): # Return true if device is a Hue bridge
     response = __getDescription(address)
-    try:
-        description = response.text
-    except:
-        return False
-    if (description.find("Philips hue") != -1):
+    if (response.find("Philips hue") != -1):
         return True
     return False
 
 def __getDescription(address): # Get description from device
-    timeout = 1 # Maksimum time to wait for reply
-    return HTTPS.request(HTTPS.GET, address, "/description.xml", timeout = timeout)
+    timeout = 100 # Maksimum time to wait for reply
+    response_code, data = HTTPS.request(HTTPS.GET, address, "/description.xml", timeout = timeout, verbose = False, dataType = "text")
+    return data

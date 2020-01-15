@@ -1,6 +1,6 @@
 import os
 import bridgeFinder
-import keySetup
+from keySetup import *
 
 class configManager():
     __configFileName = "config.txt" # Config file name
@@ -43,11 +43,15 @@ class configManager():
 
     def __loadConfig(self, path): # Load ip and key from config file
         print("Getting API address and key from config file.")
-        file = open(path, "r")
-        self.__address = file.readline()
-        if self.__address.find("\n") != -1:
-            self.__address = self.__address[0: len(self.__address) - 1]
-        self.__key = file.readline()
+        with open(path, "r") as file:
+            data = json.load(file)
+        try:
+            self.__address = data["address"]
+            self.__key = data["key"]
+            return True
+        except:
+            print("Exception on __loadConfig(): Invalid config file format.")
+            return False
 
     def __makeConfig(self, path): # Make config file, get ip and key and save to file
         action = input("No config found. Make one? (Yes/No)")
@@ -64,9 +68,9 @@ class configManager():
             self.__address = devices[0] # Save api addres to script variable
             self.__key = getAPIkey(self.__address) # Save key to script variable
             print("Key is: {}".format(self.__key))
-            file = open(path, "w") # Create config file
-            file.write(self.__address) # Save key to fileyes
-            file.write(self.__key) # Save key to file
+            data = {"address": self.__address, "key": self.__key}
+            with open(path, "w") as file:
+                json.dump(data, file)
         else:
             input("Press any key to exit...")
             exit()

@@ -59,7 +59,7 @@ class lightManager():
         if self.__lights == None or (time.time() - self.__lastUpdate) > self.__updateInterval:
             self.__lights = self.__requestLightsFromBridge()
             if self.__verbose:
-                print("Found {} lights with data {}".format(self.__getNumOfLights(self.__lights), self.__lights))
+                print("Found {} lights with data {}".format(len(self.__lights), self.__lights))
         return self.__lights
 
     def setColor(self, lightID, hue, sat, bri):
@@ -81,25 +81,14 @@ class lightManager():
 
     def __requestLightsFromBridge(self):
         response_code, data = HTTPS.request(HTTPS.GET, self.__address, "/api/" + self.__key + "/lights")
-        lightData = None
-        numLights = self.__getNumOfLights(data)
-        for lid in range(1, numLights + 1):
-            name = None
-            try:
-                name = data[str(lid)]["name"]
-            except:
-                continue
-            light = {"id": str(lid), "name": name}
-            if lightData == None:
-                lightData = [light]
-            else:
-                lightData.append(light)
+        lights = []
+        lightData = []
+        if data != None:
+            for light in data:
+                lights.append(light)
+        if len(lights) > 0:
+            for i in range(0, len(lights)):
+                lightID = lights[i]
+                lightName = data[lightID]["name"]
+                lightData.append({"id": lightID, "name": lightName})
         return lightData
-
-    def __getNumOfLights(self, data):
-        numLights = 0
-        try:
-            numLights = len(data)
-        except:
-            print("Exception on __getNumOfLights(): No lights detected.")
-        return numLights
