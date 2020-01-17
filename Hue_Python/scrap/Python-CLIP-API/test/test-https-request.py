@@ -50,13 +50,15 @@ sat = "241"
 hue = "30000"
 
 
-address = "https://192.168.87.183/api/jVfvoEykjhjr5JU448bac1XruOG-jYVMW1s6WCAY/lights/"
+#address = "https://192.168.87.183/api/jVfvoEykjhjr5JU448bac1XruOG-jYVMW1s6WCAY/lights/"
 
-#address = "https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/4/state"
+address = "https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/2/state"
 
-params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat)}
+#params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat)}
 
-response = requests.get(address, verify = False)
+params = {"xy": [0.5, 0.23]}
+
+response = requests.put(address, json = params, verify = False)
 
 #no = False
 #response = requests.get("https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights", verify = False) # Dump all data

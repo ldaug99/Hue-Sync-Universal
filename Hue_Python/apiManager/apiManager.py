@@ -6,8 +6,10 @@ from . import HTTPS
 class apiManager():
     ### Static class variables ###
     CONFIG_NAME = "apiMan"
-    KWARG_ADDR = "address"
-    KWARG_KEY = "key"
+    CONFIG_ADDR = "address"
+    CONFIG_KEY = "key"
+    KWARG_ADDR = CONFIG_ADDR
+    KWARG_KEY = CONFIG_KEY
     KWARG_VERBOSE = "verbose"
     UPDATE_INTERVAL = 1000
 

@@ -2,7 +2,8 @@ import main
 
 class cli():
     def __init__(self):
-        self.__hue = main.hue(verbose = True, config = {"dir": "default", "file": "l_config.txt"})
+        #self.__hue = main.hue(verbose = True, config = {"dir": "default", "file": "l_config.txt"})
+        self.__hue = main.hue(verbose = True)
         self.run()
 
     def run(self):
@@ -57,7 +58,7 @@ class cli():
         hue = input("Input light hue: ")
         sat = input("Input light saturation: ")
         bri = input("Input light brightness: ")
-        print(self.__hue.setColor(lightID, hue, sat, bri))
+        print(self.__hue.setLight(lightID, hue, sat, bri))
         print(" ")
 
     def __comColorG(self):

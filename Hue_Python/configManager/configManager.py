@@ -35,15 +35,21 @@ class configManager:
     def loadData(self, module, key):
         fileData = self.__getDataFromFile()
         entryData = None
-        if module in fileData:
-            if key in fileData[module]:
-                entryData = fileData[module][key]
-                if self.__verbose:
-                    print("Found data {} at module {} and key {}".format(entryData, module, key))
+        if fileData != None:
+            if module in fileData:
+                if key in fileData[module]:
+                    entryData = fileData[module][key]
+                    if self.__verbose:
+                        print("Found data {} at module {} and key {}".format(entryData, module, key))
+                else:
+                    if self.__verbose:
+                        print("Exception on configManager() -> __loadFromFile(): Key not found in data.")
             else:
-                print("Exception on configManager() -> __loadFromFile(): Key not found in data.")
+                if self.__verbose:
+                    print("Exception on configManager() -> __loadFromFile(): Module name not found in data.")
         else:
-            print("Exception on configManager() -> __loadFromFile(): Module name not found in data.")
+            if self.__verbose:
+                print("No config file found.")
         return entryData
 
     def saveData(self, module, key, data):

@@ -16,12 +16,17 @@ class hue():
         address = self.__cm.loadData("apiMan", "address")
         key = self.__cm.loadData("apiMan", "key")
         # API manager
-        self.__am = apiManager.am(address = address, key = key, verbose = True)
+        if address != None and key != None:
+            self.__am = apiManager.am(address = address, key = key, verbose = self.__verbose)
+        else:
+            self.__am = apiManager.am(verbose = self.__verbose)
         if not self.__am.isReady():
             self.__am.configAPI()
-            self.__cm.saveData(self.__am.CONFIG_NAME, self.__am.CONFIG_KEY, self.__am.getAPIconfig)
+            apiConfig = self.__am.getAPIconfig()
+            self.__cm.saveData(self.__am.CONFIG_NAME, self.__am.CONFIG_ADDR, apiConfig[self.__am.CONFIG_ADDR])
+            self.__cm.saveData(self.__am.CONFIG_NAME, self.__am.CONFIG_KEY, apiConfig[self.__am.CONFIG_KEY])
         # Light manager
-        self.__lm = lightManager.lm(verbose = True)
+        self.__lm = lightManager.lm(verbose = self.__verbose)
         lightData = self.__cm.loadData(self.__lm.CONFIG_NAME, self.__lm.CONFIG_KEY)
         if lightData != None:
             self.__lm.setConfig(lightData)
@@ -59,7 +64,7 @@ class hue():
     def getGroups(self):
         return(self.__lm.getConfig())
 
-    def setLight(sef, lightID, hue, sat, bri):
+    def setLight(self, lightID, hue, sat, bri):
         return self.__am.setColor(lightID, hue, sat, bri)
 
     def setGroupLight(self, group, hue, sat, bri):
