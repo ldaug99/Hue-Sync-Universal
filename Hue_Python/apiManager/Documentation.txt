@@ -1,0 +1,46 @@
+apiManager documentation:
+Description:
+    Interface with Hue CLIP API
+
+Initialization:
+    Paramaters:
+        Required:
+            None
+        Optional:
+            address: API address
+            key: API key
+            verbose: Print debug info
+
+Functions:
+    isReady():
+        Description:
+            Check if apiManager is configred and has connection to the bridge
+        Paramaters:
+            Required:
+                None
+            Optional:
+                None
+        Return:
+            True on ready, False if api address or keys is missing
+
+    configAPI():
+        Description:
+            Find bridge and acquire API key from bridge
+        Paramaters:
+            Required:
+                None
+            Optional:
+                None
+        Return:
+            True on success, False if bridge could not be found or if unable to obtain API key
+
+    getAPIconfig():
+        Description:
+            Return API address and key
+        Paramaters:
+            Required:
+                None
+            Optional:
+                None
+        Return:
+            Address and key as dictionary {"address": ADDRESS, "key": KEY} on success, None if undefined

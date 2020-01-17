@@ -1,0 +1,27 @@
+{
+    "apiMan": {
+        "address": xxx.xxx.xxx.xxx,
+        "key": xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    }
+    "lightMan": {
+        "lights": {
+            "1": {
+                "id": 1,
+                "description": "Very noice light",
+                "groupe": "center"
+            },
+            "2": {
+                "id": 5,
+                "description": "Sexy light",
+                "groupe": "left
+            }
+        },
+        "groups" {
+            "center": ["1", "2"],
+            "left": ["3", "4"],
+            "right": [],
+            "top": [],
+            "bottom": []
+        }
+    }
+}

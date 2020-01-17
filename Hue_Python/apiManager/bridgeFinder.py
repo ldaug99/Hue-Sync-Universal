@@ -1,13 +1,5 @@
 import socket
-from common import HTTPS
-
-class bridgeFinder():
-
-
-    def __init__(self):
-
-        
-    def run():
+from . import HTTPS
 
 def scanNetwork():
     print("Beginning network scan...")

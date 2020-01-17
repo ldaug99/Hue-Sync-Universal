@@ -1,0 +1,70 @@
+configManager documentation:
+Description:
+    A config file manager ment to be used by modules to save data, that needs to persist between runs. The data is saved to txt files and stores as json format.
+
+Initialization:
+    Paramaters:
+        Required:
+            None
+        Optional:
+            path: Specify path and filename
+                - Format: dictionary {directory, filename}
+                - directory: System directory to the location to use
+                    - Use "default" to only alter filename, but use default directory
+                - filename: Name of the file in the directory to use (or to create)
+            verbose: Print debug info
+    
+Functions:
+    loadData():
+        Description:
+            Load an entry from the config data.
+        Paramaters:
+            Required:
+                module: Name of the module for which to store data
+                key: The data key to find
+            Optional:
+                None
+        Return:
+            data from the requested module and key, None on fault.
+
+    saveData():
+        Description:
+            Write data to config file. Will rewrite data if data is already stored.
+        Paramaters:
+            Required:
+                module: Name of the module for which to store data
+                key: The data key to find
+                data: Data to store at the key
+            Optional:
+                None
+        Return:
+            True on successfull store and successfull rewrite of data, False on fault.
+
+    __getDataFromFile():
+        Description:
+            Load data from config file.
+        Paramaters:
+            Required:
+                None
+            Optional:
+                None
+        Return:
+            Data stored in file, None on fault.
+
+Data structure:
+{
+    "module1": {
+        "key1": data,
+        "key2": {
+            "key2_1": data2_1,
+            "key2_2": data2_2
+        }
+        ...
+    }
+    "module2": {
+        "key3": data3,
+        "key4": data4
+        ...
+    }
+    ...
+}

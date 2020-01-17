@@ -1,0 +1,6 @@
+{
+    "apiMan": {
+        "address": "192.168.87.183",
+        "key": "jVfvoEykjhjr5JU448bac1XruOG-jYVMW1s6WCAY"
+    }
+}
