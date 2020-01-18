@@ -2,8 +2,9 @@ import main
 
 class cli():
     def __init__(self):
-        #self.__hue = main.hue(verbose = True, config = {"dir": "default", "file": "l_config.txt"})
-        self.__hue = main.hue(verbose = True)
+        self.__hue = main.hue(verbose = True, config = {"dir": "default", "file": "l_config.txt"})
+        #self.__hue = main.hue(verbose = True)
+        self.__hue.getLights()
         self.run()
 
     def run(self):
@@ -55,19 +56,19 @@ class cli():
 
     def __comColorL(self):
         lightID = input("Input light ID: ")
-        hue = input("Input light hue: ")
-        sat = input("Input light saturation: ")
-        bri = input("Input light brightness: ")
-        print(self.__hue.setLight(lightID, hue, sat, bri))
+        R = input("Input light red: ")
+        G = input("Input light green: ")
+        B = input("Input light blue: ")
+        print(self.__hue.setLight(lightID, R, G, B))
         print(" ")
 
     def __comColorG(self):
         print(self.__hue.getGroups())
         group = input("Input group name: ")
-        hue = input("Input light hue: ")
-        sat = input("Input light saturation: ")
-        bri = input("Input light brightness: ")
-        print(self.__hue.setGroupLight(group, hue, sat, bri))
+        R = input("Input light red: ")
+        G = input("Input light green: ")
+        B = input("Input light blue: ")
+        print(self.__hue.setGroupLight(group, R, G, B))
         print(" ")
 
     def __comLights(self):

@@ -47,16 +47,16 @@ import sys
 lightID = "8"
 bri = "241"
 sat = "241"
-hue = "30000"
+hue = "50000"
 
 
 #address = "https://192.168.87.183/api/jVfvoEykjhjr5JU448bac1XruOG-jYVMW1s6WCAY/lights/"
 
-address = "https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/2/state"
+address = "https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/4/state"
 
-#params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat)}
+params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat), "transitiontime": 1}
 
-params = {"xy": [0.5, 0.23]}
+#params = {"xy": [0.5, 0.23]}
 
 response = requests.put(address, json = params, verify = False)
 

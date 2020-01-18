@@ -12,6 +12,8 @@ class apiManager():
     KWARG_KEY = CONFIG_KEY
     KWARG_VERBOSE = "verbose"
     UPDATE_INTERVAL = 1000
+    HS_COLORMODE = "hs"
+    XY_COLORMODE = "xy"
 
     def __init__(self, **kwargs):
         self.__lights = None
@@ -66,6 +68,7 @@ class apiManager():
 
     def __requestLightsFromBridge(self):
         response_code, data = HTTPS.request(HTTPS.GET, self.__api[apiManager.KWARG_ADDR], "/api/" + self.__api[apiManager.KWARG_KEY] + "/lights")
+        self.__lightConfig = {}
         lights = []
         lightData = []
         if data != None:
@@ -73,16 +76,86 @@ class apiManager():
                 lights.append(light)
         if len(lights) > 0:
             for i in range(0, len(lights)):
-                lightID = lights[i]
-                lightName = data[lightID]["name"]
-                lightData.append({"id": lightID, "name": lightName})
+                try:
+                    lightID = lights[i]
+                    lightName = data[lightID]["name"]
+                    ligthMode = data[lightID]["state"]["colormode"]
+                    lightData.append({"id": lightID, "name": lightName, "colormode": ligthMode})
+                    self.__lightConfig[lightID] = ligthMode
+                except:
+                    print("Exception on apiManager() -> __requestLightsFromBridge(): Light data does not contain expected entries")
         return lightData
-        
-    def setColor(self, lightID, hue, sat, bri):
-        params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat)}
-        response_code, data = HTTPS.request(HTTPS.PUT, self.__api[apiManager.KWARG_ADDR], "/api/" + self.__api[apiManager.KWARG_KEY] + "/lights/" + lightID + "/state", params = params)
-        print("Bridge responded with {}".format(response_code))
+
+    def setColor(self, lightID, sR, sG, sB):
+        params = self.__determineColormode(lightID, int(sR), int(sG), int(sB))
+        response_code, data = HTTPS.request(HTTPS.PUT, self.__api[apiManager.KWARG_ADDR], "/api/" + self.__api[apiManager.KWARG_KEY] + "/lights/" + lightID + "/state", params = params, dataType = "json", verbose = True)
+        print("Bridge responded with {} and data {}".format(response_code, data))
         if response_code < 202:
             return True
         else:
             return False
+
+    def __determineColormode(self, lightID, R, G, B):
+        try:
+            colormode = self.__lightConfig[lightID]
+        except:
+            colormode = apiManager.HS_COLORMODE
+            print("Exception on apiManager() -> __determineColormode(): No config found for lightID {}".format(lightID))
+        switcher = {
+            apiManager.XY_COLORMODE: self.__convertRGBtoXY,
+            apiManager.HS_COLORMODE: self.__convertRGBtoHS
+        }
+        function = switcher.get(colormode, lambda: "Invalid colormode")
+        return function(R, G, B)
+
+    def __convertRGBtoXY(self, R, G, B):
+        fR, fG, fB = self.__RGBtoFloat(R, G, B)
+        # Convert RGB ot XYZ
+        tx = fR * 0.649926 + fG * 0.103455 + fB * 0.197109
+        ty = fR * 0.234327 + fG * 0.743075 + fB * 0.022598
+        tz = fG * 0.053077 + fB * 1.035763
+        # Find x and y
+        x = tx / (tx + ty + tz)
+        y = tx / (tx + ty + tz)
+        #### Check if within color gamut capabilities of light - WIP
+        bri = 255 * ty
+        return self.__getXYparams(x, y, int(bri))
+
+    def __convertRGBtoHS(self, R, G, B):
+        # Convert RGB to fraction of RGB from 0 to 1.
+        fR, fG, fB = self.__RGBtoFloat(R, G, B)
+        # Get maximum value
+        Cmax = max(fR, fG, fB)
+        # Get minimum value
+        Cmin = min(fR, fG, fB)
+        # Get difference
+        delta = Cmax - Cmin
+        # Get hue
+        hue = 0
+        if delta == 0:
+            pass
+        elif Cmax == fR:
+            hue = (65535/6) * (((fG - fB) / delta) % 6)
+        elif Cmax == fG:
+            hue = (65535/6) * (((fB - fR) / delta) + 2)
+        elif Cmax == fB:
+            hue = (65535/6) * (((fR - fG) / delta) + 4)
+        # Get brightness
+        bri = ((Cmax - Cmin) / 2)
+        # Get saturation
+        sat = 0
+        if delta != 0:
+            sat = 255 * (delta / (1 - abs((2 * bri) - 1)))
+        # Get brightness (of 0 to 255)
+        bri = 255 * bri
+        return self.__getHSparams(int(hue), int(sat), int(bri))
+
+    def __RGBtoFloat(self, R, G, B):
+        # Convert RGB to float value (ratioes from 0 to 1 - instead of between 0 255)
+        return R/255, G/255, B/255
+
+    def __getXYparams(self, x, y, bri):
+        return {"bri": bri, "on": True, "xy": [x, y], "transitiontime": 1}
+
+    def __getHSparams(self, hue, sat, bri):
+        return {"bri": bri, "hue": hue, "on": True, "sat": sat, "transitiontime": 1}
