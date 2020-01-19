@@ -2,8 +2,8 @@ import main
 
 class cli():
     def __init__(self):
-        #self.__hue = main.hue(verbose = True, config = {"dir": "default", "file": "l_config.txt"})
-        self.__hue = main.hue(verbose = True)
+        self.__hue = main.hue(verbose = True, config = {"dir": "default", "file": "l_config.txt"})
+        #self.__hue = main.hue(verbose = True)
         self.__hue.getLights()
         self.run()
 

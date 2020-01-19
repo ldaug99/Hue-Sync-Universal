@@ -6,7 +6,12 @@
     "lightMan": {
         "groups": {
             "bottom": [],
-            "center": [],
+            "center": [
+                "1",
+                "2",
+                "3",
+                "4"
+            ],
             "left": [],
             "right": [],
             "top": []

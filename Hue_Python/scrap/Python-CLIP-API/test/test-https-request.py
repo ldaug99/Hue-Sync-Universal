@@ -55,12 +55,12 @@ hue = "50000"
 #address = "https://192.168.1.57/api/h0Ov2zL9X7i7plHOBc2HTH8p4n0SAjxyjpSfe6fv/lights/4/state"
 
 
-address = "https://192.168.1.57/api/h0Ov2zL9X7i7plHOBc2HTH8p4n0SAjxyjpSfe6fv/lights/4/state"
+address = "https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/2/state"
 
 
-params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat), "transitiontime": 1}
+#params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat), "transitiontime": 1}
 
-#params = {"xy": [0.5, 0.23]}
+params = {"on": True, "xy": [0.25, 0.70], "bri": 255, "transitiontime": 0}
 
 response = requests.put(address, json = params, verify = False)
 
