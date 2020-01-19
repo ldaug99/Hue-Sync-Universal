@@ -1,0 +1,21 @@
+{
+    "apiMan": {
+        "address": "192.168.87.114",
+        "key": "0VHkzVZEi3-cYlEgJFDaEFsELmO6UVC25NuFqJvn"
+    },
+    "lightMan": {
+        "groups": {
+            "bottom": [],
+            "center": [
+                "1",
+                "2",
+                "3"
+            ],
+            "left": [],
+            "right": [
+                "4"
+            ],
+            "top": []
+        }
+    }
+}

@@ -52,7 +52,11 @@ hue = "50000"
 
 #address = "https://192.168.87.183/api/jVfvoEykjhjr5JU448bac1XruOG-jYVMW1s6WCAY/lights/"
 
-address = "https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights/4/state"
+#address = "https://192.168.1.57/api/h0Ov2zL9X7i7plHOBc2HTH8p4n0SAjxyjpSfe6fv/lights/4/state"
+
+
+address = "https://192.168.1.57/api/h0Ov2zL9X7i7plHOBc2HTH8p4n0SAjxyjpSfe6fv/lights/4/state"
+
 
 params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat), "transitiontime": 1}
 
@@ -61,7 +65,7 @@ params = {"bri": int(bri), "hue": int(hue), "on": True, "sat": int(sat), "transi
 response = requests.put(address, json = params, verify = False)
 
 #no = False
-#response = requests.get("https://192.168.87.114/api/7wg5y9ytGcQmrjmegai7sxzzcMuFBZxJOlzL8zLL/lights", verify = False) # Dump all data
+#response = requests.get(address, verify = False) # Dump all data
 try:
     data = response.json()
     print(json.dumps(data, sort_keys=True, indent=3))

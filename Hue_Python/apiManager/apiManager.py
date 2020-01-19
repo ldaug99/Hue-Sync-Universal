@@ -88,12 +88,13 @@ class apiManager():
 
     def setColor(self, lightID, sR, sG, sB):
         params = self.__determineColormode(lightID, int(sR), int(sG), int(sB))
-        response_code, data = HTTPS.request(HTTPS.PUT, self.__api[apiManager.KWARG_ADDR], "/api/" + self.__api[apiManager.KWARG_KEY] + "/lights/" + lightID + "/state", params = params, dataType = "json", verbose = True)
-        print("Bridge responded with {} and data {}".format(response_code, data))
-        if response_code < 202:
-            return True
-        else:
-            return False
+        if params != None:
+            response_code, data = HTTPS.request(HTTPS.PUT, self.__api[apiManager.KWARG_ADDR], "/api/" + self.__api[apiManager.KWARG_KEY] + "/lights/" + lightID + "/state", params = params, dataType = "json", verbose = True)
+            print("Bridge responded with {} and data {}".format(response_code, data))
+            if response_code < 202:
+                return True
+        
+        return False
 
     def __determineColormode(self, lightID, R, G, B):
         try:
@@ -105,8 +106,11 @@ class apiManager():
             apiManager.XY_COLORMODE: self.__convertRGBtoXY,
             apiManager.HS_COLORMODE: self.__convertRGBtoHS
         }
-        function = switcher.get(colormode, lambda: "Invalid colormode")
+        function = switcher.get(colormode, lambda: self.__invalidColormode)
         return function(R, G, B)
+
+    def __invalidColormode(self, R, G, B):
+        return self.__convertRGBtoHS(R, G, B)
 
     def __convertRGBtoXY(self, R, G, B):
         fR, fG, fB = self.__RGBtoFloat(R, G, B)
