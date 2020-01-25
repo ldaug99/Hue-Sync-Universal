@@ -29,6 +29,9 @@ class lightManager():
         if config != None:
             self.setConfig(config)
 
+    def isReady(self):
+        return True
+
     def setConfig(self, config):
         if config != None:
             for group in config:

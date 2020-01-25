@@ -1,0 +1,1 @@
+from .camManager import camManager as wm

@@ -1,6 +1,9 @@
 import configManager
 import apiManager
 import lightManager
+import camManager
+import mainThread
+import time
 
 class hue():
     KWARG_VERBOSE = "verbose"
@@ -17,7 +20,7 @@ class hue():
         key = self.__cm.loadData("apiMan", "key")
         # API manager
         if address != None and key != None:
-            self.__am = apiManager.am(address = address, key = key, verbose = self.__verbose)
+            self.__am = apiManager.am(address = address, key = key, verbose = self.__verbose, bri = 254)
         else:
             self.__am = apiManager.am(verbose = self.__verbose)
         if not self.__am.isReady():
@@ -30,9 +33,31 @@ class hue():
         lightData = self.__cm.loadData(self.__lm.CONFIG_NAME, self.__lm.CONFIG_KEY)
         if lightData != None:
             self.__lm.setConfig(lightData)
+        # Camera manager
+        self.__wm = camManager.wm(verbose = self.__verbose)
+        if not self.__wm.isReady():
+            if not self.__wm.retryOpen():
+                print("Exception on hue() -> __init__(): Unable to start camera manager.")
+                return False
+        # Main thread
+        self.__mt = mainThread.mt(self.__lm, self.__am, self.__wm, verbose = self.__verbose)
+        self.__mt.setName("mainThread")
+        self.__mt.start()
+        time.sleep(0.5)
+        if not self.__mt.isRunning():
+            try:
+                self.__mt.join()
+            except:
+                pass
+            print("Exception on hue() -> __init__(): Unable to start main thread.")
         # Done setup
         if self.__verbose:
             print("Module initialization complete")
+
+    def cleanup(self):
+        self.__wm.release()
+        self.__mt.stop()
+        self.__mt.join()
 
     def getLights(self):
         return self.__am.getLights()
@@ -64,13 +89,34 @@ class hue():
     def getGroups(self):
         return(self.__lm.getConfig())
 
-    def setLight(self, lightID, hue, sat, bri):
-        return self.__am.setColor(lightID, hue, sat, bri)
+    def setLight(self, lightID, r, g, b):
+        return self.__am.setColor(lightID, r, g, b)
 
-    def setGroupLight(self, group, hue, sat, bri):
+    def setGroupLight(self, group, r, g, b):
         lights = self.__lm.getLightsInGroup(group)
         for lightID in lights:
-            self.__am.setColor(lightID, hue, sat, bri)
+            self.__am.setColor(lightID, r, g, b)
         if lights == None:
             return False
         return True
+
+    def setUpdateFrequency(self, fs):
+        if self.__mt.isRunning():
+            self.__mt.setFs(int(fs))
+        else:
+            print("Exception on hue() -> setUpdateFrequency(): mainThread not running.")
+
+    def startColorCapture(self):
+        if self.__mt.isRunning():
+            self.__mt.startCapture()
+        else:
+            print("Exception on hue() -> startColorCapture(): mainThread not running.")
+
+    def stopColorCapture(self):
+        if self.__mt.isRunning():
+            self.__mt.stopCapture()
+        else:
+            print("Exception on hue() -> stopColorCapture(): mainThread not running.")
+    
+    def showFrame(self, state):
+        self.__wm.showFrame(state)

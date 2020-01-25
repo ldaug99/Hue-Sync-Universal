@@ -1,7 +1,7 @@
 import os
 import json
 
-class configManager:
+class configManager():
     ### Static class variables ###
     DEFAULT_CONFIG_NAME = "config.txt"
     FILE_SUBFOLDER = "//config"

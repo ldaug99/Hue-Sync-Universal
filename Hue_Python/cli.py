@@ -2,16 +2,18 @@ import main
 
 class cli():
     def __init__(self):
-        #self.__hue = main.hue(verbose = True, config = {"dir": "default", "file": "l_config.txt"})
-        self.__hue = main.hue(verbose = True)
+        self.__hue = main.hue(verbose = True, config = {"dir": "default", "file": "l_config.txt"})
+        #self.__hue = main.hue(verbose = True)
         self.__hue.getLights()
+        self.doRun = True
+        self.showFrame = False
         self.run()
 
     def run(self):
         self.waitForCommand()
 
     def waitForCommand(self):
-        while 1==1:
+        while self.doRun:
             command = input("Input a command: ")
             self.__processCommand(command)
 
@@ -23,7 +25,12 @@ class cli():
             "lights": self.__comLights,
             "colorL": self.__comColorL,
             "colorG": self.__comColorG,
-            "groups": self.__commGroups
+            "groups": self.__commGroups,
+            "start": self.__commStart,
+            "stop": self.__commStop,
+            "fs": self.__commFs,
+            #"tf": self.__commFrame,
+            "exit": self.__commExit
         }
         function = switcher.get(command, self.__comInvalid)
         function()
@@ -37,6 +44,11 @@ class cli():
         print("         colorL - Set color of light or group.")
         print("         colorG - Set color of light or group.")
         print("         groups - Prints lights in groups.")
+        print("         start  - Start color capture.")
+        print("         stop   - Stop color capture.")
+        print("         fs     - Set capture frequency in Hz.")
+        #print("         tf     - Toggle show frame.")
+        print("         exit   - Exit script.")
         print(" ")
         pass
 
@@ -85,4 +97,34 @@ class cli():
         print("     Groups {}".format(self.__hue.getGroups()))
         print(" ")
     
+    def __commStart(self):
+        print("     Starting color capture...")
+        self.__hue.startColorCapture()
+        print(" ")
+
+    def __commStop(self):
+        print("     Stopping color capture...")
+        self.__hue.stopColorCapture()
+        print(" ")
+
+    def __commFrame(self):
+        if self.showFrame:
+            self.showFrame = False
+            self.__hue.showFrame(self.showFrame)
+        else:
+            self.showFrame = True
+            self.__hue.showFrame(self.showFrame)
+        print("Showing frame {}".format(self.showFrame))
+        print(" ")
+
+    def __commFs(self):
+        fs = input("Input update frequency: ")
+        self.__hue.setUpdateFrequency(fs)
+        print(" ")
+
+    def __commExit(self):
+        print("     Exiting script...")
+        self.__hue.cleanup()
+        self.doRun = False
+
 cli()

@@ -14,6 +14,7 @@ class apiManager():
     UPDATE_INTERVAL = 100
     #HS_COLORMODE = "hs"
     #XY_COLORMODE = "xy"
+    KWARG_BRI = "bri" # Kwarg to force brightness to a certain value
 
     HUE_C = [
         [0.649926, 0.103455, 0.197109],
@@ -47,6 +48,7 @@ class apiManager():
         # Get variables
         self.__api = {apiManager.KWARG_ADDR: kwargs.get(apiManager.KWARG_ADDR, None), apiManager.KWARG_KEY: kwargs.get(apiManager.KWARG_KEY, None)}
         self.__verbose = kwargs.get(apiManager.KWARG_VERBOSE, False)
+        self.__froceBri = kwargs.get(apiManager.KWARG_BRI, None)
         if not self.isReady():
             if self.__verbose:
                 print("No API address or key given - Run configAPI()")
@@ -115,6 +117,7 @@ class apiManager():
 
     #def setColor(self, lightID, sR, sG, sB, sbri):
     def setColor(self, lightID, sR, sG, sB):
+        # https://medium.com/hipster-color-science/a-beginners-guide-to-colorimetry-401f1830b65a
         #params = self.__determineColormode(lightID, int(sR), int(sG), int(sB))
         #params = self.__convertRGBtoXY(int(sR), int(sG), int(sB), int(sbri))
         params = self.__convertRGBtoXY(int(sR), int(sG), int(sB))
@@ -155,7 +158,10 @@ class apiManager():
         y = round(ty / (tx + ty + tz), 2)
         #### Check if within color gamut capabilities of light - WIP
         #bri = round((254 * ty) + (254 - ty) * (bri / 255))
-        bri = round(254 * ty)
+        if self.__froceBri != None:
+            bri = self.__froceBri
+        else:
+            bri = round(254 * ty)
         if self.__verbose:
             print("RBG to XYZ returnes: xy [{} , {}], brightness {}".format(x,y,bri))
         return self.__getXYparams(x, y, int(bri))

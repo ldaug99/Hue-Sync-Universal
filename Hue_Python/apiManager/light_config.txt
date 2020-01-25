@@ -1,0 +1,53 @@
+Off
+   "state": {
+      "alert": "select",
+      "bri": 254,
+      "colormode": "xy",
+      "ct": 500,
+      "effect": "none",
+      "hue": 6092,
+      "mode": "homeautomation",
+      "on": false,
+      "reachable": true,
+      "sat": 254,
+      "xy": [
+         0.5674,
+         0.4015
+      ]
+   },
+
+On: Blue
+   "state": {
+      "alert": "select",
+      "bri": 254,
+      "colormode": "xy",
+      "ct": 153,
+      "effect": "none",
+      "hue": 45975,
+      "mode": "homeautomation",
+      "on": true,
+      "reachable": true,
+      "sat": 254,
+      "xy": [
+         0.1541,
+         0.0818
+      ]
+   },
+
+On: White
+   "state": {
+      "alert": "select",
+      "bri": 254,
+      "colormode": "ct",
+      "ct": 496,
+      "effect": "none",
+      "hue": 45975,
+      "mode": "homeautomation",
+      "on": true,
+      "reachable": true,
+      "sat": 254,
+      "xy": [
+         0.5249,
+         0.4135
+      ]
+   },
