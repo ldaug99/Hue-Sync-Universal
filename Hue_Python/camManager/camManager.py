@@ -24,22 +24,22 @@ class camManager():
 
     def release(self):
         self.__webcam.release()
-        #cv2.destroyAllWindows()
-        #cv2.waitKey(0)
-        #cv2.waitKey(0) 
-        #cv2.waitKey(0) 
-        #cv2.waitKey(0) 
-        #cv2.waitKey(0)  
+        cv2.destroyAllWindows()
+        cv2.waitKey(0)
+        cv2.waitKey(0) 
+        cv2.waitKey(0) 
+        cv2.waitKey(0) 
+        cv2.waitKey(0)  
     
-    # def showFrame(self, state):
-    #     self.__showFrame = state
-    #     if not self.__showFrame:
-    #         cv2.destroyAllWindows()
-    #         cv2.waitKey(0) 
-    #         cv2.waitKey(0) 
-    #         cv2.waitKey(0) 
-    #         cv2.waitKey(0) 
-    #         cv2.waitKey(0) 
+    def showFrame(self, state):
+        self.__showFrame = state
+        if not self.__showFrame:
+             cv2.destroyAllWindows()
+             cv2.waitKey(0) 
+             cv2.waitKey(0) 
+             cv2.waitKey(0) 
+             cv2.waitKey(0) 
+             cv2.waitKey(0) 
 
     def getFrame(self):
         if self.__webcam.isOpened():

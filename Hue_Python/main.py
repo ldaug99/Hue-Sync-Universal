@@ -34,7 +34,7 @@ class hue():
         if lightData != None:
             self.__lm.setConfig(lightData)
         # Camera manager
-        self.__wm = camManager.wm(verbose = self.__verbose)
+        self.__wm = camManager.wm(0, verbose = self.__verbose)
         if not self.__wm.isReady():
             if not self.__wm.retryOpen():
                 print("Exception on hue() -> __init__(): Unable to start camera manager.")

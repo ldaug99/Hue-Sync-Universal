@@ -15,6 +15,7 @@ class cli():
     def waitForCommand(self):
         while self.doRun:
             command = input("Input a command: ")
+
             self.__processCommand(command)
 
     def __processCommand(self, command):
@@ -29,7 +30,7 @@ class cli():
             "start": self.__commStart,
             "stop": self.__commStop,
             "fs": self.__commFs,
-            #"tf": self.__commFrame,
+            "tf": self.__commFrame,
             "exit": self.__commExit
         }
         function = switcher.get(command, self.__comInvalid)
@@ -47,7 +48,7 @@ class cli():
         print("         start  - Start color capture.")
         print("         stop   - Stop color capture.")
         print("         fs     - Set capture frequency in Hz.")
-        #print("         tf     - Toggle show frame.")
+        print("         tf     - Toggle show frame.")
         print("         exit   - Exit script.")
         print(" ")
         pass

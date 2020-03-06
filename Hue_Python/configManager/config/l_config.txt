@@ -7,8 +7,7 @@
         "groups": {
             "bottom": [],
             "center": [
-                "3",
-                "4"
+                "3"
             ],
             "left": [],
             "right": [],

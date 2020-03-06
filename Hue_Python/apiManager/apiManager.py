@@ -1,4 +1,5 @@
 import time
+from rgbxy import Converter
 from . import bridgeFinder
 from . import keySetup
 from . import HTTPS
@@ -49,6 +50,7 @@ class apiManager():
         self.__api = {apiManager.KWARG_ADDR: kwargs.get(apiManager.KWARG_ADDR, None), apiManager.KWARG_KEY: kwargs.get(apiManager.KWARG_KEY, None)}
         self.__verbose = kwargs.get(apiManager.KWARG_VERBOSE, False)
         self.__froceBri = kwargs.get(apiManager.KWARG_BRI, None)
+        self.__converter = Converter()
         if not self.isReady():
             if self.__verbose:
                 print("No API address or key given - Run configAPI()")
@@ -120,13 +122,20 @@ class apiManager():
         # https://medium.com/hipster-color-science/a-beginners-guide-to-colorimetry-401f1830b65a
         #params = self.__determineColormode(lightID, int(sR), int(sG), int(sB))
         #params = self.__convertRGBtoXY(int(sR), int(sG), int(sB), int(sbri))
-        params = self.__convertRGBtoXY(int(sR), int(sG), int(sB))
+        #params = self.__convertRGBtoXY(int(sR), int(sG), int(sB))
+        params = self.__easyXY(int(sR), int(sG), int(sB))
         if params != None:
             response_code, data = HTTPS.request(HTTPS.PUT, self.__api[apiManager.KWARG_ADDR], "/api/" + self.__api[apiManager.KWARG_KEY] + "/lights/" + lightID + "/state", params = params, dataType = "json", verbose = True)
             print("Bridge responded with {} and data {}".format(response_code, data))
             if response_code < 202:
                 return True
         return False
+
+    def __easyXY(self, R, G, B):
+        param = self.converter(R, G, B)
+        x = param[0]
+        y = param[1]
+        return self.__getXYparams(x, y, 254)
 
     # def __determineColormode(self, lightID, R, G, B):
     #     try:
@@ -146,26 +155,30 @@ class apiManager():
 
     #def __convertRGBtoXY(self, R, G, B, bri):
     def __convertRGBtoXY(self, R, G, B):
-        fR, fG, fB = self.__RGBtoFloat(R, G, B)
-        # Convert RGB ot XYZ
-        tx = fR * apiManager.REF_WHITE[0][0] + fG * apiManager.REF_WHITE[0][1] + fB * apiManager.REF_WHITE[0][2]
-        ty = fR * apiManager.REF_WHITE[1][0] + fG * apiManager.REF_WHITE[1][1] + fB * apiManager.REF_WHITE[1][2]
-        tz = fR * apiManager.REF_WHITE[2][0] + fG * apiManager.REF_WHITE[2][1] + fB * apiManager.REF_WHITE[2][2]
-        if self.__verbose:
-            print("Calculated x {}, y {} and z {}".format(tx,ty,tz))
-        # Find x and y
-        x = round(tx / (tx + ty + tz), 2)
-        y = round(ty / (tx + ty + tz), 2)
-        #### Check if within color gamut capabilities of light - WIP
-        #bri = round((254 * ty) + (254 - ty) * (bri / 255))
-        if self.__froceBri != None:
-            bri = self.__froceBri
+        if R != 0 and G != 0 and B != 0:
+            fR, fG, fB = self.__RGBtoFloat(R, G, B)
+            # Convert RGB ot XYZ
+            tx = fR * apiManager.REF_WHITE[0][0] + fG * apiManager.REF_WHITE[0][1] + fB * apiManager.REF_WHITE[0][2]
+            ty = fR * apiManager.REF_WHITE[1][0] + fG * apiManager.REF_WHITE[1][1] + fB * apiManager.REF_WHITE[1][2]
+            tz = fR * apiManager.REF_WHITE[2][0] + fG * apiManager.REF_WHITE[2][1] + fB * apiManager.REF_WHITE[2][2]
+            if self.__verbose:
+                print("Calculated x {}, y {} and z {}".format(tx,ty,tz))
+            # Find x and y
+            x = round(tx / (tx + ty + tz), 2)
+            y = round(ty / (tx + ty + tz), 2)
+            #### Check if within color gamut capabilities of light - WIP
+            #bri = round((254 * ty) + (254 - ty) * (bri / 255))
+            if self.__froceBri != None:
+                bri = self.__froceBri
+            else:
+                bri = round(254 * ty)
+            if self.__verbose:
+                print("RBG to XYZ returnes: xy [{} , {}], brightness {}".format(x,y,bri))
+            return self.__getXYparams(x, y, int(bri))
         else:
-            bri = round(254 * ty)
-        if self.__verbose:
-            print("RBG to XYZ returnes: xy [{} , {}], brightness {}".format(x,y,bri))
-        return self.__getXYparams(x, y, int(bri))
-
+            if self.__verbose:
+                print("Color input zero, setting brightness zero")
+            return self.__getXYparams(0.4, 0.4, 0)
     # def __convertRGBtoHS(self, R, G, B):
     #     # Convert RGB to fraction of RGB from 0 to 1.
     #     fR, fG, fB = self.__RGBtoFloat(R, G, B)
